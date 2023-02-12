@@ -9,20 +9,21 @@ int main(int argc, char **argv) {
 
   char *p = argv[1];
 
-  printf("  .globl main\n");
+  printf(".intel_syntax noprefix\n");
+  printf(".globl main\n");
   printf("main:\n");
-  printf("  mov $%ld, %%rax\n", strtol(p, &p, 10));
+  printf("  mov %%rax, %ld\n", strtol(p, &p, 10));
 
   while (*p) {
     if (*p == '+') {
       p++;
-      printf("  add $%ld, %%rax\n", strtol(p, &p, 10));
+      printf("  add %%rax, %ld\n", strtol(p, &p, 10));
       continue;
     }
 
     if (*p == '-') {
       p++;
-      printf("  sub $%ld, %%rax\n", strtol(p, &p, 10));
+      printf("  sub %%rax, %ld\n", strtol(p, &p, 10));
       continue;
     }
 
